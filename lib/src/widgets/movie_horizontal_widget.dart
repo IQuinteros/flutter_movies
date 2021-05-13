@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 
 import '../models/movie_model.dart';
 
@@ -36,7 +36,7 @@ class MovieHorizontal extends StatelessWidget {
   }
 
   Widget _loadCard(BuildContext context, Movie movie){
-    return Container(
+    final movieCard = Container(
       margin: EdgeInsets.only(right: 15.0),
       child: Column(
         children: [
@@ -58,34 +58,13 @@ class MovieHorizontal extends StatelessWidget {
         ],
       ),
     );
+
+    return GestureDetector(
+      child: movieCard,
+      onTap: ()  {
+        Navigator.pushNamed(context, 'detail', arguments: movie); 
+      },
+    );
   }
-
-  List<Widget> _cards(BuildContext context){
-
-    return movies.map((movie){
-      return Container(
-        margin: EdgeInsets.only(right: 15.0),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: FadeInImage(
-                image: NetworkImage(movie.getPosterImg()),
-                placeholder: AssetImage('assets/no-image.jpg'),
-                fit: BoxFit.cover,
-                height: 160.0,
-              ),
-            ),
-            SizedBox(height: 5.0),
-            Text(
-              movie.title,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.caption,
-            )
-          ],
-        ),
-      );
-    }).toList();
-
-  }
+ 
 }
